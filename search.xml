@@ -33,11 +33,11 @@
 </tr>
 <tr>
 <td style="text-align:center">유한성</td>
-<td>한정된 수의 단계 후에는 반드시 종료되어야한다.</td>
+<td>한정된 수의 단계 후에는 반드시 종료되어야한다</td>
 </tr>
 <tr>
 <td style="text-align:center">유효성</td>
-<td>각 명령어들은 실행 가능한 연산이어야 한다.</td>
+<td>각 명령어들은 실행 가능한 연산이어야 한다</td>
 </tr>
 </tbody>
 </table>
