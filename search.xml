@@ -12,7 +12,7 @@
 <li>스택 위에 새로운 노드를 쌓는 작업</li>
 </ul>
 <p>데이터 80 삽입  </p>
-<p><img src="/.io//1.stack-push.png" alt="데이터 80 삽입"></p>
+<img src="/.io//03/19/2-Stack/stack-push.png" class title="데이터 80 삽입">
 <h3 id="삭제-Pop"><a href="#삭제-Pop" class="headerlink" title="삭제(Pop)"></a>삭제(Pop)</h3><ul>
 <li>스택에서 최상위 노드를 걷어내는 작업</li>
 </ul>
