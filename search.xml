@@ -3,7 +3,8 @@
   <entry>
     <title>[BackJoon:10828] 스택</title>
     <url>/2020/03/18/BackJoon-10828-stack/</url>
-    <content><![CDATA[<h1 id="BackJoon-10828-스택"><a href="#BackJoon-10828-스택" class="headerlink" title="[BackJoon:10828] 스택"></a>[BackJoon:10828] 스택</h1><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>정수를 저장하는 스택을 구현한 다음, 입력으로 주어지는 명령을 처리하는 프로그램을 작성하시오.</p>
+    <content><![CDATA[<h1 id="BackJoon-10828-스택"><a href="#BackJoon-10828-스택" class="headerlink" title="[BackJoon:10828] 스택"></a>[BackJoon:10828] 스택</h1><p><strong>문제 사이트</strong> : <a href="https://www.acmicpc.net/problem/10828" target="_blank" rel="noopener">https://www.acmicpc.net/problem/10828</a></p>
+<h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>정수를 저장하는 스택을 구현한 다음, 입력으로 주어지는 명령을 처리하는 프로그램을 작성하시오.</p>
 <p>명령은 총 다섯 가지이다.</p>
 <ul>
 <li>push X: 정수 X를 스택에 넣는 연산이다.</li>
