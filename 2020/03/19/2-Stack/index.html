@@ -47,18 +47,18 @@
   };
 </script>
 
-  <meta name="description" content="스택(Stack) 먼저 들어간 데이터가 가장 마지막에 나오는 구조(Last In, First Out : LIFO) 삽입과 삭제가 한쪽 끝에서만 아루어짐 ex) 자동메모리, 네트워크 프로토콜  스택(Stack)의 주요 기능삽입(Push) 스택 위에 새로운 노드를 쌓는 작업  데이터 80 삽입   삭제(Pop) 스택에서 최상위 노드를 걷어내는 작업  데이터 8">
+  <meta name="description" content="스택(Stack) 먼저 들어간 데이터가 가장 마지막에 나오는 구조(Last In, First Out : LIFO) 삽입과 삭제가 한쪽 끝에서만 자료를 넣고 뺄 수 있다. ex) 자동메모리, 네트워크 프로토콜  스택(Stack)의 주요 기능스택의 초기화12int stack[100]; &#x2F;&#x2F;스택 배열int size &#x3D; 0; &#x2F;&#x2F; 스태의 크기 삽입(Push) 스택">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2. 스택(Stack)">
 <meta property="og:url" content="https://pscheol.github.io/2020/03/19/2-Stack/index.html">
 <meta property="og:site_name" content="끄적끄적 개발자">
-<meta property="og:description" content="스택(Stack) 먼저 들어간 데이터가 가장 마지막에 나오는 구조(Last In, First Out : LIFO) 삽입과 삭제가 한쪽 끝에서만 아루어짐 ex) 자동메모리, 네트워크 프로토콜  스택(Stack)의 주요 기능삽입(Push) 스택 위에 새로운 노드를 쌓는 작업  데이터 80 삽입   삭제(Pop) 스택에서 최상위 노드를 걷어내는 작업  데이터 8">
+<meta property="og:description" content="스택(Stack) 먼저 들어간 데이터가 가장 마지막에 나오는 구조(Last In, First Out : LIFO) 삽입과 삭제가 한쪽 끝에서만 자료를 넣고 뺄 수 있다. ex) 자동메모리, 네트워크 프로토콜  스택(Stack)의 주요 기능스택의 초기화12int stack[100]; &#x2F;&#x2F;스택 배열int size &#x3D; 0; &#x2F;&#x2F; 스태의 크기 삽입(Push) 스택">
 <meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://pscheol.github.io/2020/03/19/2-Stack/stack-push.png">
 <meta property="og:image" content="https://pscheol.github.io/2020/03/19/2-Stack/stack-pop.png">
 <meta property="og:image" content="https://pscheol.github.io/2020/03/19/2-Stack/stack-push.png">
 <meta property="article:published_time" content="2020-03-18T15:21:23.000Z">
-<meta property="article:modified_time" content="2020-03-18T17:17:44.319Z">
+<meta property="article:modified_time" content="2020-03-19T07:12:05.891Z">
 <meta property="article:author" content="Seung Cheol Paik">
 <meta property="article:tag" content="algorithm">
 <meta property="article:tag" content="stack">
@@ -242,7 +242,7 @@
               <span class="post-meta-item-text">Posted on</span>
               
 
-              <time title="Created: 2020-03-19 00:21:23 / Modified: 02:17:44" itemprop="dateCreated datePublished" datetime="2020-03-19T00:21:23+09:00">2020-03-19</time>
+              <time title="Created: 2020-03-19 00:21:23 / Modified: 16:12:05" itemprop="dateCreated datePublished" datetime="2020-03-19T00:21:23+09:00">2020-03-19</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -282,7 +282,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>6.1k</span>
+              <span>6.4k</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -303,23 +303,35 @@
       
         <h1 id="스택-Stack"><a href="#스택-Stack" class="headerlink" title="스택(Stack)"></a>스택(Stack)</h1><ul>
 <li>먼저 들어간 데이터가 가장 마지막에 나오는 구조(Last In, First Out : LIFO)</li>
-<li>삽입과 삭제가 한쪽 끝에서만 아루어짐</li>
+<li>삽입과 삭제가 한쪽 끝에서만 자료를 넣고 뺄 수 있다.</li>
 <li>ex) 자동메모리, 네트워크 프로토콜</li>
 </ul>
-<h2 id="스택-Stack-의-주요-기능"><a href="#스택-Stack-의-주요-기능" class="headerlink" title="스택(Stack)의 주요 기능"></a>스택(Stack)의 주요 기능</h2><h3 id="삽입-Push"><a href="#삽입-Push" class="headerlink" title="삽입(Push)"></a>삽입(Push)</h3><ul>
+<h2 id="스택-Stack-의-주요-기능"><a href="#스택-Stack-의-주요-기능" class="headerlink" title="스택(Stack)의 주요 기능"></a>스택(Stack)의 주요 기능</h2><p><strong>스택의 초기화</strong><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> stack[<span class="number">100</span>]; <span class="comment">//스택 배열</span></span><br><span class="line"><span class="keyword">int</span> size = <span class="number">0</span>; <span class="comment">// 스태의 크기</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="삽입-Push"><a href="#삽입-Push" class="headerlink" title="삽입(Push)"></a>삽입(Push)</h3><ul>
 <li>스택 위에 새로운 노드를 쌓는 작업</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">push</span><span class="params">(<span class="keyword">int</span> data)</span> </span>&#123;</span><br><span class="line">	stack[size] = data;</span><br><span class="line">	size = size + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>데이터 80 삽입</p>
 <img src="/2020/03/19/2-Stack/stack-push.png" class="" title="&lt;데이터 80 삽입&gt;"> 
 <h3 id="삭제-Pop"><a href="#삭제-Pop" class="headerlink" title="삭제(Pop)"></a>삭제(Pop)</h3><ul>
 <li>스택에서 최상위 노드를 걷어내는 작업</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">pop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (size &lt; <span class="number">0</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;		</span><br><span class="line">	<span class="keyword">int</span> pop = stack[size];</span><br><span class="line">	size = size - <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> pop;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>데이터 80 제거  </p>
 <img src="/2020/03/19/2-Stack/stack-pop.png" class="" title="&lt;데이터 80 제거&gt;"> 
 <h3 id="Peek"><a href="#Peek" class="headerlink" title="Peek"></a>Peek</h3><ul>
 <li>Top이 가리키는 위치의 데이터를 가져오는 작업</li>
 </ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">peek</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> stack[size];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <img src="/2020/03/19/2-Stack/stack-push.png" class="" title="&lt; Top이 가리키는 위치의 데이터 70을 가져온다 &gt;"> 
+<h3 id="empty"><a href="#empty" class="headerlink" title="empty"></a>empty</h3><ul>
+<li>스택이 비어있는지 비어있지 않은지 알아보는 작업</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">isEmpty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> (size == <span class="number">0</span>) ? <span class="keyword">true</span> : <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="size"><a href="#size" class="headerlink" title="size"></a>size</h3><ul>
+<li>스택에 저장되어 있는 자료의 개수를 알아보는 작업</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">size</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> size;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="배열로-구현하는-스택"><a href="#배열로-구현하는-스택" class="headerlink" title="배열로 구현하는 스택"></a>배열로 구현하는 스택</h2><ul>
 <li>동적으로 스택의 용량을 조절하기가 어렵다는 단점이 있다.</li>
 <li>구현이 간단하다.</li>
@@ -431,7 +443,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#스택-Stack"><span class="nav-number">1.</span> <span class="nav-text">스택(Stack)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#스택-Stack-의-주요-기능"><span class="nav-number">1.1.</span> <span class="nav-text">스택(Stack)의 주요 기능</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#삽입-Push"><span class="nav-number">1.1.1.</span> <span class="nav-text">삽입(Push)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#삭제-Pop"><span class="nav-number">1.1.2.</span> <span class="nav-text">삭제(Pop)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Peek"><span class="nav-number">1.1.3.</span> <span class="nav-text">Peek</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#배열로-구현하는-스택"><span class="nav-number">1.2.</span> <span class="nav-text">배열로 구현하는 스택</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#연결리스트로-구현하는-스택"><span class="nav-number">1.3.</span> <span class="nav-text">연결리스트로 구현하는 스택</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#스택-Stack"><span class="nav-number">1.</span> <span class="nav-text">스택(Stack)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#스택-Stack-의-주요-기능"><span class="nav-number">1.1.</span> <span class="nav-text">스택(Stack)의 주요 기능</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#삽입-Push"><span class="nav-number">1.1.1.</span> <span class="nav-text">삽입(Push)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#삭제-Pop"><span class="nav-number">1.1.2.</span> <span class="nav-text">삭제(Pop)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Peek"><span class="nav-number">1.1.3.</span> <span class="nav-text">Peek</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#empty"><span class="nav-number">1.1.4.</span> <span class="nav-text">empty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#size"><span class="nav-number">1.1.5.</span> <span class="nav-text">size</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#배열로-구현하는-스택"><span class="nav-number">1.2.</span> <span class="nav-text">배열로 구현하는 스택</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#연결리스트로-구현하는-스택"><span class="nav-number">1.3.</span> <span class="nav-text">연결리스트로 구현하는 스택</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -509,7 +521,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">13k</span>
+    <span title="Symbols count total">14k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
