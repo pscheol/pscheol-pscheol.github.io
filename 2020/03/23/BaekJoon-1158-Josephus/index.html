@@ -55,13 +55,13 @@
 <meta property="og:description" content="[BaekJoon-1158] 요세푸스 문제(Josephus of problem)문제요세푸스 문제는 다음과 같다. 1번부터 N번까지 N명의 사람이 원을 이루면서 앉아있고, 양의 정수 K(≤ N)가 주어진다. 이제 순서대로 K번째 사람을 제거한다. 한 사람이 제거되면 남은 사람들로 이루어진 원을 따라 이 과정을 계속해 나간다. 이 과정은 N명의 사람이 모두 제">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-23T12:09:00.000Z">
-<meta property="article:modified_time" content="2020-03-23T12:54:13.617Z">
+<meta property="article:modified_time" content="2020-03-26T12:59:27.164Z">
 <meta property="article:author" content="Seung Cheol Paik">
 <meta property="article:tag" content="algorithm">
-<meta property="article:tag" content="queue">
-<meta property="article:tag" content="큐">
 <meta property="article:tag" content="coding-test">
 <meta property="article:tag" content="코딩테스트">
+<meta property="article:tag" content="queue">
+<meta property="article:tag" content="큐">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://pscheol.github.io/2020/03/23/BaekJoon-1158-Josephus/">
@@ -151,17 +151,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">14</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">17</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">3</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories<span class="badge">5</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">10</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">15</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -238,10 +238,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-23 21:09:00 / Modified: 21:54:13" itemprop="dateCreated datePublished" datetime="2020-03-23T21:09:00+09:00">2020-03-23</time>
+              <time title="Created: 2020-03-23 21:09:00" itemprop="dateCreated datePublished" datetime="2020-03-23T21:09:00+09:00">2020-03-23</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-26 21:59:27" itemprop="dateModified" datetime="2020-03-26T21:59:27+09:00">2020-03-26</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -314,6 +320,7 @@
 </ol>
 <p>끝.</p>
 <h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        josephus();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">josephus</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(System.out));</span><br><span class="line"></span><br><span class="line">        String[] input = in.readLine().split(<span class="string">" "</span>);</span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(input[<span class="number">0</span>]);</span><br><span class="line">        <span class="keyword">int</span> k = Integer.parseInt(input[<span class="number">1</span>]);</span><br><span class="line"></span><br><span class="line">        Queue&lt;Integer&gt; queue = <span class="keyword">new</span> LinkedList&lt;&gt;();</span><br><span class="line">        List&lt;Integer&gt; result = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;=n; i++) &#123;</span><br><span class="line">            queue.offer(i);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> cnt = <span class="number">1</span>;</span><br><span class="line">        StringBuilder sb = <span class="keyword">new</span> StringBuilder(<span class="string">"&lt;"</span>);</span><br><span class="line">        <span class="keyword">while</span> (!queue.isEmpty()) &#123;</span><br><span class="line">            <span class="keyword">if</span> (k == cnt) &#123;</span><br><span class="line">                cnt = <span class="number">1</span>;</span><br><span class="line">                sb.append(queue.poll());</span><br><span class="line">                <span class="keyword">if</span> (!queue.isEmpty()) &#123;</span><br><span class="line">                    sb.append(<span class="string">", "</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                cnt++;</span><br><span class="line">                queue.offer(queue.poll());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        sb.append(<span class="string">"&gt;"</span>);</span><br><span class="line">        out.write(<span class="string">""</span>+ sb.toString());</span><br><span class="line">        out.flush();</span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>문제 사이트</em> : <a href="https://www.acmicpc.net/problem/1158" target="_blank" rel="noopener">https://www.acmicpc.net/problem/1158</a></p>
 
     </div>
 
@@ -325,10 +332,10 @@
           
           <div class="post-tags">
               <a href="/tags/algorithm/" rel="tag"><i class="fa fa-tag"></i> algorithm</a>
-              <a href="/tags/queue/" rel="tag"><i class="fa fa-tag"></i> queue</a>
-              <a href="/tags/%ED%81%90/" rel="tag"><i class="fa fa-tag"></i> 큐</a>
               <a href="/tags/coding-test/" rel="tag"><i class="fa fa-tag"></i> coding-test</a>
               <a href="/tags/%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8/" rel="tag"><i class="fa fa-tag"></i> 코딩테스트</a>
+              <a href="/tags/queue/" rel="tag"><i class="fa fa-tag"></i> queue</a>
+              <a href="/tags/%ED%81%90/" rel="tag"><i class="fa fa-tag"></i> 큐</a>
           </div>
 
         
@@ -340,7 +347,10 @@
     <a href="/2020/03/23/BaekJoon-1406-editor/" rel="prev" title="[BaekJoon-1406] 에디터(Editor)">
       <i class="fa fa-chevron-left"></i> [BaekJoon-1406] 에디터(Editor)
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/24/es6-Arrows/" rel="next" title="[ES6]-Arrows">
+      [ES6]-Arrows <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -423,20 +433,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-count">5</span>
         <span class="site-state-item-name">categories</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -485,13 +495,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">47k</span>
+    <span title="Symbols count total">60k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">43 mins.</span>
+    <span title="Reading time total">55 mins.</span>
 </div>
 
         
