@@ -55,7 +55,7 @@
 <meta property="og:description" content="알파벳 개수문제 알파벳 소문자로만 이루어진 단어 S가 주어진다. 각 알파벳이 단어에 몇 개가 포함되어 있는지 구하는 프로그램을 작성하시오. 입력첫째 줄에 단어 S가 주어진다. 단어의 길이는 100을 넘지 않으며, 알파벳 소문자로만 이루어져 있다. 출력단어에 포함되어 있는 a의 개수, b의 개수, …, z의 개수를 공백으로 구분해서 출력한다. 예제 입력 11">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-03-30T03:38:07.000Z">
-<meta property="article:modified_time" content="2020-03-30T10:01:07.941Z">
+<meta property="article:modified_time" content="2020-04-02T11:57:20.267Z">
 <meta property="article:author" content="Seung Cheol Paik">
 <meta property="article:tag" content="algorithm">
 <meta property="article:tag" content="coding-test">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">22</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">26</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -159,7 +159,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">31</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">38</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -236,10 +236,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-03-30 12:38:07 / Modified: 19:01:07" itemprop="dateCreated datePublished" datetime="2020-03-30T12:38:07+09:00">2020-03-30</time>
+              <time title="Created: 2020-03-30 12:38:07" itemprop="dateCreated datePublished" datetime="2020-03-30T12:38:07+09:00">2020-03-30</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-02 20:57:20" itemprop="dateModified" datetime="2020-04-02T20:57:20+09:00">2020-04-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -278,7 +284,7 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>879</span>
+              <span>922</span>
             </span>
             <span class="post-meta-item" title="Reading time">
               <span class="post-meta-item-icon">
@@ -304,6 +310,8 @@
 <h3 id="예제-출력-1"><a href="#예제-출력-1" class="headerlink" title="예제 출력 1"></a>예제 출력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 1 0 0 1 0 0 0 0 1 1 0 0 1 2 0 0 0 0 0 0 0 0 0 0 0</span><br></pre></td></tr></table></figure>
 <h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>아스키코드를 이용하여 쉽게 풀 수 있다.</p>
 <h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        countOfAlphabet();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">countOfAlphabet</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(System.out));</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        String str = in.readLine();</span><br><span class="line">        <span class="keyword">int</span>[] result = <span class="keyword">new</span> <span class="keyword">int</span> [<span class="number">26</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">char</span> ch : str.toCharArray()) &#123;</span><br><span class="line">            result[ch - <span class="string">'a'</span>]++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i : result) &#123;</span><br><span class="line">            out.write(i + <span class="string">" "</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        out.flush();</span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>문제 사이트</em> : <a href="https://www.acmicpc.net/problem/10808" target="_blank" rel="noopener">https://www.acmicpc.net/problem/10808</a></p>
+
     </div>
 
     
@@ -413,7 +421,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -426,7 +434,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -475,13 +483,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">91k</span>
+    <span title="Symbols count total">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">1:23</span>
+    <span title="Reading time total">1:33</span>
 </div>
 
         

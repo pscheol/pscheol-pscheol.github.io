@@ -55,7 +55,7 @@
 <meta property="og:description" content="[BaekJoon-6588] 골드바흐의 추측문제1742년, 독일의 아마추어 수학가 크리스티안 골드바흐는 레온하르트 오일러에게 다음과 같은 추측을 제안하는 편지를 보냈다. 4보다 큰 모든 짝수는 두 홀수 소수의 합으로 나타낼 수 있다.예를 들어 8은 3 + 5로 나타낼 수 있고, 3과 5는 모두 홀수인 소수이다. 또, 20 &#x3D; 3 + 17 &#x3D; 7 + 13,">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-04-01T12:35:16.000Z">
-<meta property="article:modified_time" content="2020-04-01T12:43:13.611Z">
+<meta property="article:modified_time" content="2020-04-02T11:57:27.600Z">
 <meta property="article:author" content="Seung Cheol Paik">
 <meta property="article:tag" content="algorithm">
 <meta property="article:tag" content="coding-test">
@@ -149,7 +149,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">22</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">26</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -159,7 +159,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">31</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">38</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -236,10 +236,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-04-01 21:35:16 / Modified: 21:43:13" itemprop="dateCreated datePublished" datetime="2020-04-01T21:35:16+09:00">2020-04-01</time>
+              <time title="Created: 2020-04-01 21:35:16" itemprop="dateCreated datePublished" datetime="2020-04-01T21:35:16+09:00">2020-04-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-02 20:57:27" itemprop="dateModified" datetime="2020-04-02T20:57:27+09:00">2020-04-02</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -312,6 +318,8 @@
 <p><code>i 번째 소수 eq i 번째 소수 eq (n - i) 번째 소수</code></p>
 <p>즉<br><code>if (!check[i] &amp;&amp; (!check[i] &amp;&amp; !check[n - i]))</code> </p>
 <h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        goldbachsConjecture();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">goldbachsConjecture</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(System.out));</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> length = <span class="number">1000000</span>;</span><br><span class="line">        <span class="keyword">boolean</span>[] check = <span class="keyword">new</span> <span class="keyword">boolean</span>[length + <span class="number">1</span>];</span><br><span class="line">        check[<span class="number">0</span>] = check[<span class="number">1</span>] = <span class="keyword">true</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (!check[i])</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i + i; j &lt;= length; j += i) check[j] = <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> n = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">int</span> a;</span><br><span class="line">        <span class="keyword">boolean</span> flags;</span><br><span class="line">        <span class="keyword">while</span> ((n = Integer.parseInt(in.readLine())) != <span class="number">0</span>) &#123;</span><br><span class="line">            a = <span class="number">2</span>;</span><br><span class="line">            flags = <span class="keyword">false</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = a; i &lt; n; i++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (!check[i] &amp;&amp; (!check[i] &amp;&amp; !check[n - i])) &#123;</span><br><span class="line">                    out.write(n + <span class="string">" = "</span> + i + <span class="string">" + "</span> + (n - i) + <span class="string">"\n"</span>);</span><br><span class="line">                    flags = <span class="keyword">true</span>;</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (!flags) out.write(<span class="string">"Goldbach's conjecture is wrong."</span>);</span><br><span class="line">            out.flush();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>문제 사이트</em> : <a href="https://www.acmicpc.net/problem/6588" target="_blank" rel="noopener">https://www.acmicpc.net/problem/6588</a></p>
+
     </div>
 
     
@@ -421,7 +429,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">31</span>
+          <span class="site-state-item-count">38</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -434,7 +442,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -483,13 +491,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">91k</span>
+    <span title="Symbols count total">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">1:23</span>
+    <span title="Reading time total">1:33</span>
 </div>
 
         
