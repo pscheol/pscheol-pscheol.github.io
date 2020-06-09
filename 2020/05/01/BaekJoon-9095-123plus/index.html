@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.0">
+<meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -55,7 +55,7 @@
 <meta property="og:description" content="1,2,3 더하기문제정수 4를 1,2,3의 조합으로 나타내는 방법은 총 7가지가 있다.  1+1+1+1 1+1+2 1+2+1 2+1+1 2+2 1+3 3+1  정수 N이 주어졌을 때, N을, 1,2,3합으로 나타내는 방법의 수를 구하는 프로그램을 작성하시오. 입력첫쨰 줄에 테스트 케이스의 개수 T가 주어진다. 각 테스트 케이스는 한 줄로 이루어져 있고, 정">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-05-01T04:27:47.000Z">
-<meta property="article:modified_time" content="2020-05-01T05:03:29.327Z">
+<meta property="article:modified_time" content="2020-06-08T04:02:29.120Z">
 <meta property="article:author" content="Seung Cheol Paik">
 <meta property="article:tag" content="algorithm">
 <meta property="article:tag" content="coding-test">
@@ -238,10 +238,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-05-01 13:27:47 / Modified: 14:03:29" itemprop="dateCreated datePublished" datetime="2020-05-01T13:27:47+09:00">2020-05-01</time>
+              <time title="Created: 2020-05-01 13:27:47" itemprop="dateCreated datePublished" datetime="2020-05-01T13:27:47+09:00">2020-05-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-08 13:02:29" itemprop="dateModified" datetime="2020-06-08T13:02:29+09:00">2020-06-08</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -320,7 +326,7 @@
 <p>2의 조합일 때</p>
 <p><code>N-2 + 2 = N</code></p>
 <p>3의 조합일 때</p>
-<p><code>N-3 + 2 = N</code></p>
+<p><code>N-3 + 3 = N</code></p>
 <p><code>D[N] = D[n-1] + D[n-2] + D[n-3]</code></p>
 <h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(System.out));</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> t = Integer.parseInt(in.readLine());</span><br><span class="line">        <span class="keyword">while</span>(t-- != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> n = Integer.parseInt(in.readLine());</span><br><span class="line">            out.write(<span class="string">""</span> + plus123(n));</span><br><span class="line">            out.write(<span class="string">"\n"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        out.flush();</span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">plus123</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= <span class="number">3</span> &amp;&amp; i - j &gt;= <span class="number">0</span>; j++) &#123;</span><br><span class="line">                    dp[i] += dp[i - j];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
