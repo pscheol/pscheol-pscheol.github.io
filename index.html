@@ -142,7 +142,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">26</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags<span class="badge">33</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -152,7 +152,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">39</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives<span class="badge">44</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -203,6 +203,688 @@
             
 
   <div class="posts-expand">
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/06/17/6-2-Expression-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Seung Cheol Paik">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="끄적끄적 개발자">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/17/6-2-Expression-tree/" class="post-title-link" itemprop="url">6-2. 수식트리(Expression Tree)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-17 15:45:00 / Modified: 15:46:51" itemprop="dateCreated datePublished" datetime="2020-06-17T15:45:00+09:00">2020-06-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/06/17/6-2-Expression-tree/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/17/6-2-Expression-tree/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="ExpressionTree-수식트리"><a href="#ExpressionTree-수식트리" class="headerlink" title="ExpressionTree(수식트리)"></a>ExpressionTree(수식트리)</h1><p>하나의 연산자가 두 개의 피 연산자를 취한다는 가정아래 두 가지 규칙을 가짐</p>
+<ol>
+<li><p>피연산자는 Left Node</p>
+</li>
+<li><p>연산자는 root Node or Branch Node</p>
+</li>
+</ol>
+<img src="/2020/06/17/6-2-Expression-tree/expTree.png" class="" title="&lt;그림1: Expression Tree&gt;">
+<p><code>ex) 1 * 2 + (7-8)은 위와 같이 수식트리로 만들 수 있음(후위표기)</code></p>
+<h2 id="알고리즘"><a href="#알고리즘" class="headerlink" title="알고리즘"></a>알고리즘</h2><ol>
+<li>수식을 뒤에서부터 앞쪽으로 읽어옴</li>
+<li>수식에서 제일 마지막에 있는 토큰은 루트노드가 된다.</li>
+<li>후위표기식에서 가장 마지막에 있는 토큰은 항상 연산자이다.</li>
+<li>수식에서 읽어낸 토큰이 연산자인 경우 가지노드가 되고, 이 토큰 다음에 따라오는 두 개의 토큰은 각각 오른쪽과 왼쪽 자식노드가 된다.</li>
+<li>다음 토큰에도 연속해서 연산자인 경우 토큰으로부터 만들어지는 하위 트리가 완성된 이후에 읽어낸 토큰이 왼쪽 자식노드가 된다.</li>
+<li>수식에서 읽어낸 토큰이 숫자이면 Left노드이다.</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> algorithm;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.math.BigDecimal;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExpTree</span> </span>&#123;</span><br><span class="line">	<span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">		<span class="keyword">private</span> Object data;</span><br><span class="line">		<span class="keyword">private</span> Node left;</span><br><span class="line">		<span class="keyword">private</span> Node right;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			data = <span class="keyword">null</span>;</span><br><span class="line">			left = <span class="keyword">null</span>;</span><br><span class="line">			right = <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="title">Node</span><span class="params">(Object data)</span> </span>&#123;</span><br><span class="line">			<span class="keyword">this</span>.data = data;</span><br><span class="line">			left = <span class="keyword">null</span>;</span><br><span class="line">			right = <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">expressionTree</span><span class="params">(StringBuilder postFixExp, Node node)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> len = postFixExp.length();</span><br><span class="line">		<span class="keyword">char</span> token = postFixExp.charAt(len - <span class="number">1</span>);</span><br><span class="line">		postFixExp = postFixExp.deleteCharAt(len - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">		<span class="keyword">switch</span> (token) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'+'</span>:</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'-'</span>:</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'*'</span>:</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'/'</span>:</span><br><span class="line">			node = <span class="keyword">new</span> Node(token);</span><br><span class="line">			<span class="comment">// Operator</span></span><br><span class="line">			expressionTree(postFixExp, node.right);</span><br><span class="line">			expressionTree(postFixExp, node.left);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			<span class="comment">// Operand</span></span><br><span class="line">			node = <span class="keyword">new</span> Node(token);</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">double</span> <span class="title">evaluate</span><span class="params">(Node tree)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">double</span> left = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">double</span> right = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">double</span> result = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span> (tree == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">char</span> data = (<span class="keyword">char</span>) tree.data;</span><br><span class="line">		System.out.println(<span class="string">"char data : "</span> + data);</span><br><span class="line">		<span class="keyword">switch</span> (data) &#123;</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'+'</span>:</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'-'</span>:</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'*'</span>:</span><br><span class="line">		<span class="keyword">case</span> <span class="string">'/'</span>:</span><br><span class="line">			left = evaluate(tree.left);</span><br><span class="line">			right = evaluate(tree.right);</span><br><span class="line">			<span class="keyword">if</span> (data == <span class="string">'+'</span>) &#123;</span><br><span class="line">				result = left + right;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (data == <span class="string">'-'</span>) &#123;</span><br><span class="line">				result = left - right;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (data == <span class="string">'*'</span>) &#123;</span><br><span class="line">				result = left * right;</span><br><span class="line">			&#125; <span class="keyword">else</span> <span class="keyword">if</span> (data == <span class="string">'/'</span>) &#123;</span><br><span class="line">				result = <span class="keyword">new</span> BigDecimal(left).divide(<span class="keyword">new</span> BigDecimal(right)).doubleValue();</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		<span class="keyword">default</span>:</span><br><span class="line">			result = <span class="keyword">new</span> BigDecimal((<span class="keyword">char</span>) tree.data).doubleValue();</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> result;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">postOrderPrint</span><span class="params">(Node tree)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (tree == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		postOrderPrint(tree.left);</span><br><span class="line">		postOrderPrint(tree.right);</span><br><span class="line">		System.out.print(tree.data);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrderPrint</span><span class="params">(Node tree)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (tree == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.print(<span class="string">"("</span>);</span><br><span class="line">		inOrderPrint(tree.left);</span><br><span class="line">		System.out.print(tree.data);</span><br><span class="line">		inOrderPrint(tree.right);</span><br><span class="line">    System.out.print(<span class="string">")"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/06/17/6-1-binary-tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Seung Cheol Paik">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="끄적끄적 개발자">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/17/6-1-binary-tree/" class="post-title-link" itemprop="url">6-1. 이진트리(Binary Tree)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-17 15:32:28 / Modified: 15:43:53" itemprop="dateCreated datePublished" datetime="2020-06-17T15:32:28+09:00">2020-06-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/06/17/6-1-binary-tree/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/17/6-1-binary-tree/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>2 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Binary-Tree-이진트리"><a href="#Binary-Tree-이진트리" class="headerlink" title="Binary Tree(이진트리)"></a>Binary Tree(이진트리)</h1><ul>
+<li><p>모든 노드가 최대 2개의 자식노드를 가질 수 있는 트리로 루트 노드를 중심으로 둘로 나뉘는 두 개의 서브 트리도 이진트리어야 하고 하위 트리도 이진트리로 구성되어 있다.</p>
+</li>
+<li><p>최대 노드의 차수는 2이므로 자식 노드가 아예 없거나 하나 또는 둘 뿐이다.</p>
+</li>
+</ul>
+<h2 id="이진트리의-종류"><a href="#이진트리의-종류" class="headerlink" title="이진트리의 종류"></a>이진트리의 종류</h2><img src="/2020/06/17/6-1-binary-tree/binaryTree.png" class="" title="&lt;그림1: Binary Tree&gt;">
+<ul>
+<li><p>포화 이진 트리(Full Binary Tree) : 모든 레벨별로 노드가 꽉 찬 이진 트리를 말한다.</p>
+</li>
+<li><p>완전 이진 트리(Complete Binart Tree) : 포화 이진 트리를 이루기 전 단계의 트리로, 잎 노드들이 왼쪽부터 차곡차곡 채워진 이진 트리이며, 모든 노드에 자식 노드가 하나도 없거나 아니면 2개의 자식 노드를 갖는 이진 트리이다.</p>
+</li>
+<li><p>높이 균형 트리(Height Balanced Tree) : 왼쪽 하위 트리와 오른쪽 하위 트리의 높이가 1 이상 차이나지 않는 트리</p>
+</li>
+<li><p>완전 높이 균형 트리(Completely Height Balanced Tree) : 왼쪽 하위 트리와 오른쪽 하위 트리의 높이가 같은 트리</p>
+</li>
+</ul>
+<h2 id="이진트리의-순회"><a href="#이진트리의-순회" class="headerlink" title="이진트리의 순회"></a>이진트리의 순회</h2><ul>
+<li>트리 내 노드들 사이를 돌아다니는 것</li>
+</ul>
+<h3 id="종류"><a href="#종류" class="headerlink" title="종류"></a>종류</h3><img src="/2020/06/17/6-1-binary-tree/tree1.png" class="" title="&lt;그림2. Tree&gt;">
+<ul>
+<li><h4 id="전위순회-Preorder-Traversal"><a href="#전위순회-Preorder-Traversal" class="headerlink" title="전위순회 (Preorder Traversal)"></a>전위순회 (Preorder Traversal)</h4><ol>
+<li><p>방문순서 : root-&gt;left-&gt;right</p>
+</li>
+<li><p>root node 부터 시작하여 아래로 내려오며, 왼쪽 하위 트리의 방문이 끝나면, 오른쪽 하위트리를 방문 하는 방식</p>
+</li>
+<li><p>순서 : <code>1-&gt;2-&gt;4-&gt;8-&gt;5-&gt;3-&gt;6-&gt;7</code></p>
+</li>
+<li><p><code>( 1( 2(4(8),5), 3( 6, 4) ))</code></p>
+</li>
+</ol>
+</li>
+<li><h4 id="중위순회-Inorder-Traversal"><a href="#중위순회-Inorder-Traversal" class="headerlink" title="중위순회 (Inorder Traversal)"></a>중위순회 (Inorder Traversal)</h4><ol>
+<li><p>방문순서 : left-&gt;root-&gt;right</p>
+</li>
+<li><p>왼쪽 하위 트리부터 시작해서, 루트를 거쳐, 오른쪽 하위 트리를 방문</p>
+</li>
+<li><p>순서 : <code>8-&gt;4-&gt;2-&gt;5-&gt;1-&gt;6-&gt;3-&gt;7</code></p>
+</li>
+</ol>
+</li>
+<li><h4 id="후위순회-Postorder-Traversal"><a href="#후위순회-Postorder-Traversal" class="headerlink" title="후위순회 (Postorder Traversal)"></a>후위순회 (Postorder Traversal)</h4><ol>
+<li><p>방문순서 : left-&gt;right-&gt;root</p>
+</li>
+<li><p>왼쪽 하위 트리부터 시작해서, 오른쪽 하위트리를 거쳐서, 루트를 방문</p>
+</li>
+<li><p>순서 : 8-&gt;4-&gt;5-&gt;2-&gt;6-&gt;7-&gt;3-&gt;1</p>
+</li>
+</ol>
+</li>
+</ul>
+<h2 id="이진트리-구현"><a href="#이진트리-구현" class="headerlink" title="이진트리 구현"></a>이진트리 구현</h2><p>BinaryTree.h</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#include &lt;stdio.h&gt;</span></span><br><span class="line"><span class="meta">#include &lt;stdlib.h&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#ifndef BINARYTREE_H</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BINARYTREE_H</span></span><br><span class="line"></span><br><span class="line">typedef <span class="keyword">char</span> Element;</span><br><span class="line">typedef <span class="keyword">struct</span> _Node &#123;</span><br><span class="line">    <span class="keyword">struct</span> _Node* left;</span><br><span class="line">    <span class="keyword">struct</span> _Node* right;</span><br><span class="line">    Element data;</span><br><span class="line">&#125;TreeNode;</span><br><span class="line"></span><br><span class="line">TreeNode* createNode(Element element);</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inOrderTree</span>(<span class="params">TreeNode* node</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderTree</span>(<span class="params">TreeNode* node</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderTree</span>(<span class="params">TreeNode* node</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span> //BINARYTREE_H</span></span><br></pre></td></tr></table></figure>
+<p>BinaryTree.c</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Created by Paik Seung Cheol on 2017. 9. 11..</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#include "BinaryTree.h"</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">TreeNode* createNode(Element element) &#123;</span><br><span class="line">    TreeNode* newNode = (TreeNode*)malloc((<span class="keyword">sizeof</span>(TreeNode)));</span><br><span class="line">    newNode-&gt;data = element;</span><br><span class="line">    newNode-&gt;left = NULL;</span><br><span class="line">    newNode-&gt;right = NULL;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * left-&gt;root-&gt;right;</span></span><br><span class="line"><span class="comment"> * @param node</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">inOrderTree</span>(<span class="params">TreeNode* node</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (node == NULL)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    inOrderTree(node-&gt;left);</span><br><span class="line">    printf(<span class="string">"%c "</span>);</span><br><span class="line">    inOrderTree(node-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * root-&gt;left-&gt;right;</span></span><br><span class="line"><span class="comment"> * @param node</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">preOrderTree</span>(<span class="params">TreeNode* node</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (node == NULL)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    printf(<span class="string">"%c "</span>);</span><br><span class="line">    preOrderTree(node-&gt;left);</span><br><span class="line">    preOrderTree(node-&gt;right);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * left-&gt;right-&gt;root;</span></span><br><span class="line"><span class="comment"> * @param node</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">postOrderTree</span>(<span class="params">TreeNode* node</span>)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (node == NULL)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    postOrderTree(node-&gt;left);</span><br><span class="line">    inOrderTree(node-&gt;right);</span><br><span class="line">    printf(<span class="string">"%c "</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    TreeNode* rootNode = createNode(<span class="string">'A'</span>);</span><br><span class="line">    TreeNode* BNode = createNode(<span class="string">'B'</span>);</span><br><span class="line">    TreeNode* CNode = createNode(<span class="string">'C'</span>);</span><br><span class="line">    TreeNode* DNode = createNode(<span class="string">'D'</span>);</span><br><span class="line">    TreeNode* ENode = createNode(<span class="string">'E'</span>);</span><br><span class="line">    TreeNode* FNode = createNode(<span class="string">'F'</span>);</span><br><span class="line">    TreeNode* GNode = createNode(<span class="string">'G'</span>);</span><br><span class="line"></span><br><span class="line">    rootNode-&gt;left = BNode;</span><br><span class="line">    rootNode-&gt;right = CNode;</span><br><span class="line">    BNode-&gt;left = DNode;</span><br><span class="line">    BNode-&gt;right = ENode;</span><br><span class="line">    CNode-&gt;left = FNode;</span><br><span class="line">    CNode-&gt;right = GNode;</span><br><span class="line"></span><br><span class="line">    printf(<span class="string">"InOrder : "</span>);</span><br><span class="line">    inOrderTree(rootNode);</span><br><span class="line">    printf(<span class="string">"\n"</span>);</span><br><span class="line">    printf(<span class="string">"PreOrder : "</span>);</span><br><span class="line">    preOrderTree(rootNode);</span><br><span class="line">    printf(<span class="string">"\n"</span>);</span><br><span class="line">    printf(<span class="string">"PostOrder : "</span>);</span><br><span class="line">    postOrderTree(rootNode);</span><br><span class="line">    printf(<span class="string">"\n"</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/06/17/6-Tree/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Seung Cheol Paik">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="끄적끄적 개발자">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/17/6-Tree/" class="post-title-link" itemprop="url">6. 트리(Tree)</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-06-17 15:27:59 / Modified: 15:43:46" itemprop="dateCreated datePublished" datetime="2020-06-17T15:27:59+09:00">2020-06-17</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/06/17/6-Tree/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/17/6-Tree/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.6k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Tree-트리"><a href="#Tree-트리" class="headerlink" title="Tree(트리)"></a>Tree(트리)</h1><ul>
+<li><p>나무와 유사하게 비선형(데이터가 계층적 구조로 이루어짐) 구조로 이루어져 있는 자료구조</p>
+</li>
+<li><p>트리는 다른 자료구조보다 자료를 저장하거나 검색하는 방법이 간단하고 메모리를 효율적으로 사용할 수 있다.</p>
+</li>
+</ul>
+<h2 id="구성"><a href="#구성" class="headerlink" title="구성"></a>구성</h2><ul>
+<li><p>트리는 크게 Root(뿌리), Branch(가지),leaf(잎) 세 가지 요소로 이루어짐</p>
+</li>
+<li><p>Root : 트리 구조에서 최상위에 존재하는 노드이다.</p>
+</li>
+<li><p>Branch : Root Node or Sub Tree 와 leaf 사이에 있는 노드를 말한다(자식). </p>
+</li>
+<li><p>Leaf(Terminal Node) : Branch Node의 맨 끝에 달려있는 노드로, 밑으로 또 다른 노드가 연결되어 있지 않은 노드를 말한다(Terminal(단말)노드).</p>
+</li>
+<li><p>Node : 트리의 구성요소에 해당하는 요소를 말한다.</p>
+</li>
+<li><p>Edge : 노드와 노드를 연결하는 연결선이다.</p>
+</li>
+<li><p>Sub-Tree : 큰 트리(전체)에 속하는 작은 트리</p>
+</li>
+<li><p>Level(Depth) : 루트노드에서 해당 노드까지 경로의 길이로 트리에서 각 층별로 숫자를 매김</p>
+</li>
+<li><p>Height : 트리의 최고 레벨 (3)</p>
+</li>
+<li><p>Length : 출발 노드에서 목적 노드까지 거쳐야하는 노드의 개수</p>
+</li>
+<li><p>Degree(차수) : 해당 노드의 자식노드 개수를 말한다.</p>
+</li>
+</ul>
+<h2 id="트리의-표현"><a href="#트리의-표현" class="headerlink" title="트리의 표현"></a>트리의 표현</h2><ol>
+<li><p>중첩된 괄호(Nested Parenthesis) : 같은 레벨의 노드를 괄호로 묶어 표현</p>
+</li>
+<li><p>중첩된 집합(Nested Set) : 트리를 집합관계로 표현</p>
+</li>
+<li><p>들여쓰기(Indentation) : 들여쓰기로 표현된 트리</p>
+</li>
+</ol>
+<h2 id="노드-표현"><a href="#노드-표현" class="headerlink" title="노드 표현"></a>노드 표현</h2><p>부모와 자식, 형제노드를 서로 연결짓는 방법</p>
+<ol>
+<li><p>N-Link(N-링크 표현법) : 노드의 차수가 N개라면 노드가 N개의 링크를 가지고 있어서 이 링크들이 각각 자식 노드를 가리키도록 노드를 구성하는 방법(단점, 차수가 노드마다 달라지는 트리에서는 적용하기 어렵고 복잡한 트리를 만들게됨)</p>
+</li>
+<li><p>Left Child-Right Sibling(왼쪽 자식, 오른쪽 형제 표현법) : N개의 차수를 가진 노드의 표현이 2개의 포인터(링크), 왼쪽-오른쪽 형제만 가진다.</p>
+</li>
+</ol>
+<h2 id="구현"><a href="#구현" class="headerlink" title="구현"></a>구현</h2><ul>
+<li>노드의 선언</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="keyword">struct</span> _Node &#123;</span><br><span class="line">    <span class="keyword">int</span> data;</span><br><span class="line">    <span class="keyword">struct</span> _Node *left;</span><br><span class="line">    <span class="keyword">struct</span> _Node *right;</span><br><span class="line">&#125;TreeNode;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>노드의 생성</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">TreeNode* createNode(<span class="keyword">int</span> data) &#123;</span><br><span class="line">  TreeNode newNode = (TreeNode*)malloc(<span class="keyword">sizeof</span>(TreeNode));</span><br><span class="line">  newNode-&gt;left = NULL;</span><br><span class="line">  newNode-&gt;right = NULL;</span><br><span class="line">  newNode-&gt;data = data;</span><br><span class="line">  <span class="keyword">return</span> newNode;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>트리 연결</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addChildNode</span>(<span class="params">TreeNode* parent, TreeNode* child</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (parent-&gt;left == NULL) &#123;</span><br><span class="line">    parent-&gt;left = child;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    TreeNode* tmpNode = parent-&gt;left;</span><br><span class="line">    <span class="keyword">while</span>(tmpNode-&gt;right != <span class="literal">null</span>) &#123;</span><br><span class="line">      tmpNode = tmpNode-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line">    tmpNode-&gt;right = child;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>트리 출력</li>
+</ul>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">printTree</span>(<span class="params">TreeNode* node, <span class="keyword">int</span> depth</span>)</span> &#123;</span><br><span class="line">  <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span>; i&lt;depth; i++) &#123;</span><br><span class="line">    printf(<span class="string">" "</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  printf(<span class="string">"%d\n"</span>, node-&gt;data);</span><br><span class="line">  <span class="keyword">if</span> (node-&gt;left != NULL) &#123;</span><br><span class="line">    printTree(node-&gt;left, depth+<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> (node-&gt;right != NULL) &#123;</span><br><span class="line">    printTree(node-&gt;right, depth+<span class="number">1</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/06/10/BeakJoon-2309-dwarfOf7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Seung Cheol Paik">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="끄적끄적 개발자">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/10/BeakJoon-2309-dwarfOf7/" class="post-title-link" itemprop="url">[BeakJoon 2309] 일곱 난쟁이</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-10 16:38:24" itemprop="dateCreated datePublished" datetime="2020-06-10T16:38:24+09:00">2020-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-17 15:41:46" itemprop="dateModified" datetime="2020-06-17T15:41:46+09:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/CodingTest/" itemprop="url" rel="index">
+                    <span itemprop="name">CodingTest</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/06/10/BeakJoon-2309-dwarfOf7/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/10/BeakJoon-2309-dwarfOf7/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>왕비를 피해 일곱 난쟁이들과 함께 평화롭게 생활하고 있던 백설공주에게 위기가 찾아왔다. 일과를 마치고 돌아온 난쟁이가 일곱 명이 아닌 아홉 명이었던 것이다.</p>
+<p>아홉 명의 난쟁이는 모두 자신이 “백설 공주와 일곱 난쟁이”의 주인공이라고 주장했다. 뛰어난 수학적 직관력을 가지고 있던 백설공주는, 다행스럽게도 일곱 난쟁이의 키의 합이 100이 됨을 기억해 냈다.</p>
+<p>아홉 난쟁이의 키가 주어졌을 때, 백설공주를 도와 일곱 난쟁이를 찾는 프로그램을 작성하시오.</p>
+<h2 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h2><p>아홉 개의 줄에 걸쳐 난쟁이들의 키가 주어진다. 주어지는 키는 100을 넘지 않는 자연수이며, 아홉 난쟁이의 키는 모두 다르며, 가능한 정답이 여러 가지인 경우에는 아무거나 출력한다.</p>
+<h2 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h2><p>일곱 난쟁이의 키를 오름차순으로 출력한다. 일곱 난쟁이를 찾을 수 없는 경우는 없다.</p>
+<h3 id="예제-입력"><a href="#예제-입력" class="headerlink" title="예제 입력"></a>예제 입력</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">20</span><br><span class="line">7</span><br><span class="line">23</span><br><span class="line">19</span><br><span class="line">10</span><br><span class="line">15</span><br><span class="line">25</span><br><span class="line">8</span><br><span class="line">13</span><br></pre></td></tr></table></figure>
+<h3 id="예제-출력"><a href="#예제-출력" class="headerlink" title="예제 출력"></a>예제 출력</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">7</span><br><span class="line">8</span><br><span class="line">10</span><br><span class="line">13</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">23</span><br></pre></td></tr></table></figure>
+<h2 id="풀이"><a href="#풀이" class="headerlink" title="풀이"></a>풀이</h2><p>7 난쟁이 키의 합이 100이므로</p>
+<p>9명의 난쟁이 합을 구하여 2명의 키 값을 뺀 값이 100이면 두 난쟁이를 -1로 처리</p>
+<h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner scan = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        <span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">9</span>];</span><br><span class="line">        <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">9</span>; i++) &#123;</span><br><span class="line">            a[i] = scan.nextInt();</span><br><span class="line">            sum += a[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span>[] result = dwarfOf7(a, sum);</span><br><span class="line">        <span class="keyword">if</span> (result == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Arrays.sort(result);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span> ;i &lt;result.length; i++) &#123;</span><br><span class="line">            System.out.println(result[i]);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] dwarfOf7(<span class="keyword">int</span> a[], <span class="keyword">int</span> sum) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i =<span class="number">0</span> ; i &lt; <span class="number">9</span>; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt; <span class="number">9</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span> (sum - (a[i] + a[j]) == <span class="number">100</span>) &#123;</span><br><span class="line">                    a[i] = a[j] = -<span class="number">1</span>;</span><br><span class="line">                    <span class="keyword">return</span> a;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/06/10/BeakJoon-1912-continuitySum/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Seung Cheol Paik">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="끄적끄적 개발자">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/06/10/BeakJoon-1912-continuitySum/" class="post-title-link" itemprop="url">[BeakJoon 1912] 연속합</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-06-10 15:31:05" itemprop="dateCreated datePublished" datetime="2020-06-10T15:31:05+09:00">2020-06-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-06-17 15:41:57" itemprop="dateModified" datetime="2020-06-17T15:41:57+09:00">2020-06-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/" itemprop="url" rel="index">
+                    <span itemprop="name">Computer</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Computer/CodingTest/" itemprop="url" rel="index">
+                    <span itemprop="name">CodingTest</span>
+                  </a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/2020/06/10/BeakJoon-1912-continuitySum/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/06/10/BeakJoon-1912-continuitySum/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="Symbols count in article">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">Symbols count in article: </span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="Reading time">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">Reading time &asymp;</span>
+              <span>1 mins.</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="연속합"><a href="#연속합" class="headerlink" title="연속합"></a>연속합</h1><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>n개의 정수로 이루어진 임의의 수열이 주어진다. 우리는 이 중 연속된 몇 개의 수를 선택해서 구할 수 있는 합 중 가장 큰 합을 구하려고 한다. 단, 수는 한 개 이상 선택해야 한다.</p>
+<p>예를 들어서 10, -4, 3, 1, 5, 6, -35, 12, 21, -1 이라는 수열이 주어졌다고 하자. 여기서 정답은 12+21인 33이 정답이 된다.</p>
+<h2 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h2><p>첫째 줄에 정수 n(1 ≤ n ≤ 100,000)이 주어지고 둘째 줄에는 n개의 정수로 이루어진 수열이 주어진다. 수는 -1,000보다 크거나 같고, 1,000보다 작거나 같은 정수이다.</p>
+<h2 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h2><p>첫째 줄에 답을 출력한다.</p>
+<h3 id="예제-입력-1"><a href="#예제-입력-1" class="headerlink" title="예제 입력 1"></a>예제 입력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">10 -4 3 1 5 6 -35 12 21 -1</span><br></pre></td></tr></table></figure>
+<h3 id="예제-출력-1"><a href="#예제-출력-1" class="headerlink" title="예제 출력 1"></a>예제 출력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">33</span><br></pre></td></tr></table></figure>
+<h3 id="예제-입력-2"><a href="#예제-입력-2" class="headerlink" title="예제 입력 2"></a>예제 입력 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">2 1 -4 3 4 -4 6 5 -5 1</span><br></pre></td></tr></table></figure>
+<h3 id="예제-출력-2"><a href="#예제-출력-2" class="headerlink" title="예제 출력 2"></a>예제 출력 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">14</span><br></pre></td></tr></table></figure>
+<h3 id="예제-입력-3"><a href="#예제-입력-3" class="headerlink" title="예제 입력 3"></a>예제 입력 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">-1 -2 -3 -4 -5</span><br></pre></td></tr></table></figure>
+<h3 id="예제-출력-3"><a href="#예제-출력-3" class="headerlink" title="예제 출력 3"></a>예제 출력 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-1</span><br></pre></td></tr></table></figure>
+<h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(System.out));</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> t = Integer.parseInt(in.readLine());</span><br><span class="line">        </span><br><span class="line">        String[] split = in.readLine().split(<span class="string">" "</span>);</span><br><span class="line">        <span class="keyword">int</span>[] a = <span class="keyword">new</span> <span class="keyword">int</span>[t];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; split.length; i++) &#123;</span><br><span class="line">            a[i] = Integer.parseInt(split[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        out.write(<span class="string">""</span> + continuitySum(a));</span><br><span class="line">        out.flush();</span><br><span class="line">        in.close();</span><br><span class="line">        out.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">continuitySum</span><span class="params">(<span class="keyword">int</span>[] a)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">long</span>[] dp = <span class="keyword">new</span> <span class="keyword">long</span>[a.length];</span><br><span class="line">        <span class="keyword">long</span> result = dp[<span class="number">0</span>] = a[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; a.length; i++) &#123;</span><br><span class="line">            dp[i] = Math.max(dp[i-<span class="number">1</span>] + a[i], a[i]);</span><br><span class="line">            <span class="keyword">if</span> (result &lt; dp[i]) &#123;</span><br><span class="line">                result = dp[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
         
   
   
@@ -825,685 +1507,11 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/04/28/BaekJoon-11726-tileOf2xN/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Seung Cheol Paik">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="끄적끄적 개발자">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/28/BaekJoon-11726-tileOf2xN/" class="post-title-link" itemprop="url">[BaekJoon-11726]-2xN 타일링</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-04-28 15:00:53 / Modified: 15:08:46" itemprop="dateCreated datePublished" datetime="2020-04-28T15:00:53+09:00">2020-04-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/CodingTest/" itemprop="url" rel="index">
-                    <span itemprop="name">CodingTest</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/04/28/BaekJoon-11726-tileOf2xN/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/28/BaekJoon-11726-tileOf2xN/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>907</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="2xN-타일링"><a href="#2xN-타일링" class="headerlink" title="2xN 타일링"></a>2xN 타일링</h1><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>2xn 크기의 직사각형을 1x2, 2x1 타일로 채우는 방법의 수를 구하는 프로그램을 작성하시오.</p>
-<h2 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h2><p>첫째 줄에 n이 주어진다 ( 1&lt;= n &lt;= 1000)</p>
-<h2 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h2><p>첫째 줄에 2xn 크기의 직사각형을 채우는 방법의 수를 10007로 나눈 나머지를 출력</p>
-<h2 id="점화식"><a href="#점화식" class="headerlink" title="점화식"></a>점화식</h2><p>조건 1 : N 번째 위치에 2x1타일이 들어가면</p>
-<p>N번째 위치에 2x1 타일 한 개를 넣을 수 있으므로</p>
-<p><strong>Dp(N-1)</strong></p>
-<p>조건 2 : N 번째 위치에 1x2 타일이 들어가면</p>
-<p>끝에 1x2 를 두개 넣을 수 있으므로</p>
-<p><strong>Dp(N-2)</strong></p>
-<p><code>Dp(N) = Dp[N-1] + Dp[N-2]</code></p>
-<h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(System.out));</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(in.readLine());</span><br><span class="line">        out.write(<span class="string">""</span> + tileOf2xn(n));</span><br><span class="line">        out.write(<span class="string">"\n"</span>);</span><br><span class="line">        out.flush();</span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">tileOf2xn</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n+<span class="number">1</span>];</span><br><span class="line">        dp[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">        dp[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            dp[i] = (dp[i-<span class="number">1</span>] + dp[i-<span class="number">2</span>]) % <span class="number">10007</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/04/28/BaekJoon-1463-makeinone/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Seung Cheol Paik">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="끄적끄적 개발자">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/28/BaekJoon-1463-makeinone/" class="post-title-link" itemprop="url">[BaekJoon-1463] 1로 만들기</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-28 14:36:37" itemprop="dateCreated datePublished" datetime="2020-04-28T14:36:37+09:00">2020-04-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-06-09 14:18:37" itemprop="dateModified" datetime="2020-06-09T14:18:37+09:00">2020-06-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/CodingTest/" itemprop="url" rel="index">
-                    <span itemprop="name">CodingTest</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/04/28/BaekJoon-1463-makeinone/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/28/BaekJoon-1463-makeinone/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="1로-만들기"><a href="#1로-만들기" class="headerlink" title="1로 만들기"></a>1로 만들기</h1><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>정수 X에 사용할 수 있는 연산은 다음과 같이 세 가지 이다.</p>
-<p>X가 3으로 나누어 떨어지면, 3으로 나눈다.<br>X가 2로 나누어 떨어지면, 2로 나눈다.<br>1을 뺀다.<br>정수 N이 주어졌을 때, 위와 같은 연산 세 개를 적절히 사용해서 1을 만들려고 한다. 연산을 사용하는 횟수의 최솟값을 출력하시오.</p>
-<h2 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h2><p>첫째 줄에 1보다 크거나 같고, 106보다 작거나 같은 정수 N이 주어진다.</p>
-<h2 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h2><p>첫째 줄에 연산을 하는 횟수의 최솟값을 출력한다.</p>
-<h3 id="예제-입력-1"><a href="#예제-입력-1" class="headerlink" title="예제 입력 1"></a>예제 입력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
-<h3 id="예제-출력-1"><a href="#예제-출력-1" class="headerlink" title="예제 출력 1"></a>예제 출력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
-<h3 id="예제-입력-2"><a href="#예제-입력-2" class="headerlink" title="예제 입력 2"></a>예제 입력 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10</span><br></pre></td></tr></table></figure>
-<h3 id="예제-출력-2"><a href="#예제-출력-2" class="headerlink" title="예제 출력 2"></a>예제 출력 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">3</span><br></pre></td></tr></table></figure>
-<h2 id="힌트"><a href="#힌트" class="headerlink" title="힌트"></a>힌트</h2><p>10의 경우에 10 -&gt; 9 -&gt; 3 -&gt; 1 로 3번 만에 만들 수 있다.</p>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p><strong>Table[i] = i 로 만드는데 최소 횟수</strong></p>
-<ul>
-<li><p>i가 3으로 나누어 떨어질경우 : <code>Table[i / 3] + 1</code></p>
-</li>
-<li><p>i가 2으로 나누어 떨어질경우 : <code>Table[i / 2] + 1</code></p>
-</li>
-<li>i가 1을 뺄 경우 : <code>Table[i - 1] + 1</code></li>
-</ul>
-<p>최솟값을 구하는 것으로</p>
-<p><code>table[i] = Min(Table[i/3], Table[i/2], Table[i-1])+1</code></p>
-<h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(System.out));</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> n = Integer.parseInt(in.readLine());</span><br><span class="line">        out.write(<span class="string">""</span> + makeItOne(n));</span><br><span class="line">        out.write(<span class="string">"\n"</span>);</span><br><span class="line">        out.flush();</span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">makeItOne</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] table = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        table[<span class="number">1</span>] = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            table[i] = table[i - <span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">if</span> (i % <span class="number">2</span> == <span class="number">0</span> &amp;&amp; table[i] &gt; table[i / <span class="number">2</span>] + <span class="number">1</span>) &#123;</span><br><span class="line">                table[i] = table[n / <span class="number">2</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> (i % <span class="number">3</span> == <span class="number">0</span> &amp;&amp; table[i] &gt; table[i / <span class="number">3</span>] + <span class="number">1</span>) &#123;</span><br><span class="line">                table[i] = table[n / <span class="number">3</span>] + <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> table[n];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//짧은 코드</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">makeItOne2</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] dp = <span class="keyword">new</span> <span class="keyword">int</span>[n + <span class="number">1</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">            dp[i] = Math.min(dp[i / <span class="number">2</span>] + (i % <span class="number">2</span>), dp[i / <span class="number">3</span>] + (i % <span class="number">3</span>)) + <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> dp[n];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/04/28/5-Dynamic-Programming/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Seung Cheol Paik">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="끄적끄적 개발자">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/28/5-Dynamic-Programming/" class="post-title-link" itemprop="url">5. 다이나믹 프로그래밍(Dynamic Programming)</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-04-28 13:50:13 / Modified: 14:00:53" itemprop="dateCreated datePublished" datetime="2020-04-28T13:50:13+09:00">2020-04-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/Algorithm/" itemprop="url" rel="index">
-                    <span itemprop="name">Algorithm</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/04/28/5-Dynamic-Programming/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/28/5-Dynamic-Programming/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Dynamic-Programming-동적계획법"><a href="#Dynamic-Programming-동적계획법" class="headerlink" title="Dynamic Programming(동적계획법)"></a>Dynamic Programming(동적계획법)</h1><ul>
-<li>풀고자하는 문제가 여러단계의 반복되는 부분문제로 이루어졌을 때 각 단계 있는 부분 문제의 답을 기반으로 전체 문제의 답을 구하는 방법</li>
-<li>문제를 부분 문제로 단계적으로 나누고, 가장 작은 부분 문제의 답부터 구해 올라오면서 전체 문제의 해를 구하는 것. 즉, 큰 문제를 작은문제로 나눠서 푸는 것</li>
-<li>계획법(Programming)이란 용어는 코딩(cooding)이 아니라 테이블을 채운다는 문자적 의미(선형 계획법과 유사)</li>
-</ul>
-<h2 id="동적계획법-전략"><a href="#동적계획법-전략" class="headerlink" title="동적계획법 전략"></a>동적계획법 전략</h2><ul>
-<li>동적 계획법과 메모하기는 함께 동작</li>
-<li>메모하기(이미 푼부속문제들의 테이블)를 이용하는 방법으로 많은 문제에서 지수적 복잡도를 다항적 복잡도로 감소시킬 수 있다.</li>
-</ul>
-<h2 id="주요-요소"><a href="#주요-요소" class="headerlink" title="주요 요소"></a>주요 요소</h2><ul>
-<li>재귀 : 부속 문제들을 재귀적으로 푼다.</li>
-<li>메모하기 : 이미 계산된 값들을 테이블에 저장(메모하기는 Cashing(캐싱)을 뜻함)</li>
-<li>동적계획법 = 재귀 + 메모하기</li>
-</ul>
-<h2 id="분할정복과-동적계획법-차이"><a href="#분할정복과-동적계획법-차이" class="headerlink" title="분할정복과 동적계획법 차이"></a>분할정복과 동적계획법 차이</h2><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>분할정복</th>
-<th>동적계획법</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>분할정복은 위에서 아래로 쪼갬(Top-down)</td>
-<td>제일 작은 부분 문제부터 상위에 있는 문제로 풀어올라감(Bottom Up)</td>
-</tr>
-<tr>
-<td>분할 정복으로 쪼갠 각 부분 문제는 완전히 새로운 하나의 문제로 다룸(부분문제들이 독립적)</td>
-<td>문제의 각 단계에 있는 부분 문제들은 그 이전 단계에 있는 문제들의 답에 의존(부속 문제들이 겹침)</td>
-</tr>
-<tr>
-<td>한번 푼적이 있는 부분문제의 답은 다시 품</td>
-<td>한번 푼적이 있는 부분문제의 답은 다시푸는 일이 없도록 테이블등에 저장</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h2 id="전략속성"><a href="#전략속성" class="headerlink" title="전략속성"></a>전략속성</h2><h3 id="최적-부속-구조-Optimal-Substructure-문제의-정답을-작은-문제의-정답에서-구할-수-있다-ex-서울에서-부산까지-가는-가장-빠른-길이-대전과-대구를-순서대로-거쳐야-한다면-대전에서-부산을-가는-가장-빠른-길은-대구를-거쳐야한다"><a href="#최적-부속-구조-Optimal-Substructure-문제의-정답을-작은-문제의-정답에서-구할-수-있다-ex-서울에서-부산까지-가는-가장-빠른-길이-대전과-대구를-순서대로-거쳐야-한다면-대전에서-부산을-가는-가장-빠른-길은-대구를-거쳐야한다" class="headerlink" title="최적 부속 구조(Optimal Substructure): 문제의 정답을 작은 문제의 정답에서 구할 수 있다. ex) 서울에서 부산까지 가는 가장 빠른 길이 대전과 대구를 순서대로 거쳐야 한다면 대전에서 부산을 가는 가장 빠른 길은 대구를 거쳐야한다."></a><strong>최적 부속 구조(Optimal Substructure)</strong>: 문제의 정답을 작은 문제의 정답에서 구할 수 있다. ex) 서울에서 부산까지 가는 가장 빠른 길이 대전과 대구를 순서대로 거쳐야 한다면 대전에서 부산을 가는 가장 빠른 길은 대구를 거쳐야한다.</h3><h3 id="겹치는-부속-문제-Overlapping-Subproblems-여러-번-반복되는-몇-가지-부속문제들을-포함하는-재귀적-해법"><a href="#겹치는-부속-문제-Overlapping-Subproblems-여러-번-반복되는-몇-가지-부속문제들을-포함하는-재귀적-해법" class="headerlink" title="겹치는 부속 문제(Overlapping Subproblems) : 여러 번 반복되는 몇 가지 부속문제들을 포함하는 재귀적 해법."></a><strong>겹치는 부속 문제(Overlapping Subproblems)</strong> : 여러 번 반복되는 몇 가지 부속문제들을 포함하는 재귀적 해법.</h3><pre><code>-    큰 문제와 작은 문제를 같은 방법으로 풀 수 있다.
--    문제를 작은 문제로 쪼갤 수 있다.
-</code></pre><h2 id="동작-방식"><a href="#동작-방식" class="headerlink" title="동작 방식"></a>동작 방식</h2><ol>
-<li>문제를 부분문제로 나눔</li>
-<li>가장 작은 부분문제로부터 해를 구한 뒤 테이블에 저장</li>
-<li>테이블에 저장되어 있는 부분문제의 해를 이용하여 점차적으로 상위 부분 문제의 최적해를 구한다.</li>
-</ol>
-<h2 id="동적-계획법으로-설계된-피보니치-수"><a href="#동적-계획법으로-설계된-피보니치-수" class="headerlink" title="동적 계획법으로 설계된 피보니치 수"></a>동적 계획법으로 설계된 피보니치 수</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">fibonacci2</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">long</span> result = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">long</span>[] table = <span class="keyword">new</span> <span class="keyword">long</span>[n + <span class="number">1</span>];</span><br><span class="line">  <span class="keyword">if</span> (n == <span class="number">0</span> || n == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> n;</span><br><span class="line">  &#125;</span><br><span class="line">  table[<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  table[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">2</span>; i &lt;= n; i++) &#123;</span><br><span class="line">    table[i] = table[i - <span class="number">1</span>] + table[i - <span class="number">2</span>];</span><br><span class="line">  &#125;</span><br><span class="line">  result = table[n];</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="최장-공통-부분-순서-Longer-Common-SubSequence-LCS"><a href="#최장-공통-부분-순서-Longer-Common-SubSequence-LCS" class="headerlink" title="최장 공통 부분 순서(Longer Common SubSequence : LCS)"></a>최장 공통 부분 순서(Longer Common SubSequence : LCS)</h2><ul>
-<li><p>두 수열의 가장 긴 공통 부분 수열을 찾아내는 문제.</p>
-<ol>
-<li><p>X, Y 두 수열 마지막이 공통 부분 수열인 경우</p>
-<ul>
-<li>LCS(Xi-1, Yj-1) + 1, Xi = Yj</li>
-<li>X와 Y의 문자가 같다(X[i] == Y[j])</li>
-<li>X와 Y의 LCS의 길이는 마지막 문자를 하나 줄인 수열 X와 마지막을 하나 줄인 수열 Y간의 LCS에 공통 문자의 길이 1을 추가한 것과 같다.</li>
-<li>일반화 하면, 마지막 index가 각각 i, j일 경우 X[i] == Y[j]이면 LCS[i][j] = LCS[i-1][j-1] + 1이다.</li>
-</ul>
-</li>
-<li><p>수열 X 마지막이 공통 부분 수열에 속하지 않는 경우</p>
-<ul>
-<li>LCS(Xi-1,Yj) &gt; LCS(Xi, Yj-1)</li>
-<li>X와 Y의 문자가 다르다(X[i] != Y[j])</li>
-<li>X와 Y의 LCS는 마지막 문자를 하나 줄인 수열 X와 수열 Y간의 LCS와 동일하다.</li>
-<li>일반화 : LCS[i][j] = LCS[i-1][j]이다.</li>
-</ul>
-</li>
-<li><p>수열 Y 마지막이 공통 부분 수열에 속하지 않는 경우</p>
-<ul>
-<li>LCS(Xi-1, Yj) &lt; LCS(Xi,Yj-1)</li>
-<li>X와 Y의 문자가 다르다(X[i] != Y[j])</li>
-<li>X와 Y의 LCS는 수열 X와 마지막 문자를 하나 줄인 수열 Y간의 LCS와 동일하다.</li>
-<li>일반화 : LCS[i][j] = LCS[i][j-1]이다.</li>
-</ul>
-</li>
-</ol>
-</li>
-</ul>
-<h2 id="해결방법"><a href="#해결방법" class="headerlink" title="해결방법"></a>해결방법</h2><ol>
-<li>문제를 부분문제로 나눈다.</li>
-<li>가장 작은 부분문제부터 해를 구하고 뒤 테이블에 저장</li>
-<li>테이블에 저장되어 있는 부분문제의 해를 이용하여 점차적으로 상위 부분 문제의 최적해를 구한다.</li>
-</ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">LCS</span><span class="params">(String X, String Y, <span class="keyword">int</span>[][] table)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; X.length(); i++) &#123;</span><br><span class="line">    table[i][<span class="number">0</span>] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; Y.length(); j++) &#123;</span><br><span class="line">    table[<span class="number">0</span>][j] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= X.length(); i++) &#123;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= Y.length(); j++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (X.charAt(i-<span class="number">1</span>) == Y.charAt(j-<span class="number">1</span>)) &#123;</span><br><span class="line">          table[i][j] = table[i-<span class="number">1</span>][j-<span class="number">1</span>] + <span class="number">1</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          table[i][j] = table[i-<span class="number">1</span>][j] &gt;  table[i][j-<span class="number">1</span>] ? table[i-<span class="number">1</span>][j] : table[i][j-<span class="number">1</span>];</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> table[X.length()-<span class="number">1</span>][Y.length()-<span class="number">1</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">LCS_TraceBack</span><span class="params">(String x, String y,<span class="keyword">int</span> i, <span class="keyword">int</span> j,  <span class="keyword">int</span>[][] table, String lcs)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">if</span> (i == <span class="number">0</span>  || j == <span class="number">0</span>) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (table[i][j] &gt; table[i][j-<span class="number">1</span>] &amp;&amp; table[i][j] &gt; table[i-<span class="number">1</span>][j] &amp;&amp; table[i][j] &gt; table[i-<span class="number">1</span>][j-<span class="number">1</span>]) &#123;</span><br><span class="line">    String tmp = lcs;</span><br><span class="line">    lcs = String.format(<span class="string">"%c%s "</span>, x.charAt(i-<span class="number">1</span>), tmp);</span><br><span class="line">    System.out.println(lcs);</span><br><span class="line">    LCS_TraceBack(x,y, i-<span class="number">1</span> ,j-<span class="number">1</span>, table, lcs);</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (table[i][j] &gt; table[i-<span class="number">1</span>][j] &amp;&amp; table[i][j] == table[i][j-<span class="number">1</span>]) &#123;</span><br><span class="line">    LCS_TraceBack(x,y,i, j-<span class="number">1</span>, table, lcs);</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    LCS_TraceBack(x,y, i-<span class="number">1</span>, j, table, lcs);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/04/02/BaekJoon-17087-hid-and-seek/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Seung Cheol Paik">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="끄적끄적 개발자">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/02/BaekJoon-17087-hid-and-seek/" class="post-title-link" itemprop="url">[BaekJoon-17087] 숨바꼭질 6</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-              
-
-              <time title="Created: 2020-04-02 18:25:38 / Modified: 20:30:21" itemprop="dateCreated datePublished" datetime="2020-04-02T18:25:38+09:00">2020-04-02</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/CodingTest/" itemprop="url" rel="index">
-                    <span itemprop="name">CodingTest</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/04/02/BaekJoon-17087-hid-and-seek/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/02/BaekJoon-17087-hid-and-seek/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>2 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="BaekJoon-17087-숨바꼭질-6"><a href="#BaekJoon-17087-숨바꼭질-6" class="headerlink" title="[BaekJoon-17087] 숨바꼭질 6"></a>[BaekJoon-17087] 숨바꼭질 6</h1><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>수빈이는 동생 N명과 숨바꼭질을 하고 있다. 수빈이는 현재 점 S에 있고, 동생은 A1, A2, …, AN에 있다.</p>
-<p>수빈이는 걸어서 이동을 할 수 있다. 수빈이의 위치가 X일때 걷는다면 1초 후에 X+D나 X-D로 이동할 수 있다. 수빈이의 위치가 동생이 있는 위치와 같으면, 동생을 찾았다고 한다.</p>
-<p>모든 동생을 찾기위해 D의 값을 정하려고 한다. 가능한 D의 최댓값을 구해보자.</p>
-<h2 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h2><p>첫째 줄에 N(1 ≤ N ≤ 105)과 S(1 ≤ S ≤ 109)가 주어진다. 둘째 줄에 동생의 위치 Ai(1 ≤ Ai ≤ 109)가 주어진다. 동생의 위치는 모두 다르며, 수빈이의 위치와 같지 않다.</p>
-<h2 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h2><p>가능한 D값의 최댓값을 출력한다.</p>
-<h3 id="예제-입력-1"><a href="#예제-입력-1" class="headerlink" title="예제 입력 1"></a>예제 입력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3 3</span><br><span class="line">1 7 11</span><br></pre></td></tr></table></figure>
-<h3 id="예제-출력-1"><a href="#예제-출력-1" class="headerlink" title="예제 출력 1"></a>예제 출력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2</span><br></pre></td></tr></table></figure>
-<h3 id="예제-입력-2"><a href="#예제-입력-2" class="headerlink" title="예제 입력 2"></a>예제 입력 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">3 81</span><br><span class="line">33 105 57</span><br></pre></td></tr></table></figure>
-<h3 id="예제-출력-2"><a href="#예제-출력-2" class="headerlink" title="예제 출력 2"></a>예제 출력 2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">24</span><br></pre></td></tr></table></figure>
-<h3 id="예제-입력-3"><a href="#예제-입력-3" class="headerlink" title="예제 입력 3"></a>예제 입력 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 1</span><br><span class="line">1000000000</span><br></pre></td></tr></table></figure>
-<h3 id="예제-출력-3"><a href="#예제-출력-3" class="headerlink" title="예제 출력 3"></a>예제 출력 3</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">999999999</span><br></pre></td></tr></table></figure>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>수빈이는 S 동생은 $A_1 … A_N$ 에 있다고 하면 수빈이는 x-&gt; X+D나 X - D 로 이동할 수 있다고 하고, D의 최댓값을 구하는 문제</p>
-<p>A 에서 B 로 이동 하는 경우(A &lt; B) : X -&gt; X + D나 X - D 로만 이동하려면 B - X가 D의 배수가 되어야 한다.</p>
-<p>A 에서 B C 로 이동하는 경우(A &lt; B, A &lt; C) : X-&gt; X + D나 X - D로만 이동하려면 D-X가 D의 배수가 되어야하고, C-X가 의 배수가 되어야한다.</p>
-<p>예를들어 시작점 S 가 2이고 도착지가 26이면 둘 사이 차이나는 거리 D = 24 이다. </p>
-<p>그래서 여기서 공통된 약수의 합을 구하면 되므로 </p>
-<p>$|A_1 - X|,|A_2 - X|,|A_3 - X|…|A_n - X|$ 의 최대공약수를 구하면된다.</p>
-<h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">import java.io.BufferedReader;</span><br><span class="line">import java.io.BufferedWriter;</span><br><span class="line">import java.io.InputStreamReader;</span><br><span class="line">import java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line">public class Main &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) throws Exception &#123;</span><br><span class="line">        g2();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void g2() throws Exception &#123;</span><br><span class="line">        BufferedWriter out &#x3D; new BufferedWriter(new OutputStreamWriter(System.out));</span><br><span class="line">        BufferedReader in &#x3D; new BufferedReader(new InputStreamReader(System.in));</span><br><span class="line">        String str &#x3D; in.readLine();</span><br><span class="line">        String[] split &#x3D; str.split(&quot; &quot;);</span><br><span class="line">        int n &#x3D; Integer.parseInt(split[0]);</span><br><span class="line">        int s &#x3D; Integer.parseInt(split[1]);</span><br><span class="line"></span><br><span class="line">        String str2 &#x3D; in.readLine();</span><br><span class="line">        String[] split2 &#x3D; str2.split(&quot; &quot;);</span><br><span class="line">        int[] a &#x3D; new int[n];</span><br><span class="line"></span><br><span class="line">        for (int i &#x3D; 0; i &lt; n; i++) &#123;</span><br><span class="line">            int x &#x3D; Integer.parseInt(split2[i]);</span><br><span class="line">            a[i] &#x3D; Math.abs(x-s);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        int result &#x3D; a[0];</span><br><span class="line">        for (int i &#x3D; 1; i &lt; n; i++) &#123;</span><br><span class="line">            result &#x3D; gcd(result, a[i]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        out.write(result + &quot;\n&quot;);</span><br><span class="line">        out.flush();;</span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static int gcd(int a, int b) &#123;</span><br><span class="line">        while (b !&#x3D; 0) &#123;</span><br><span class="line">            int r &#x3D; a % b;</span><br><span class="line">            a &#x3D; b;</span><br><span class="line">            b &#x3D; r;</span><br><span class="line">        &#125;</span><br><span class="line">        return a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>문제 사이트</em> : <a href="https://www.acmicpc.net/problem/17087" target="_blank" rel="noopener">https://www.acmicpc.net/problem/17087</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://pscheol.github.io/2020/04/02/BaekJoon-9613-gcd-sum/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Seung Cheol Paik">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="끄적끄적 개발자">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/02/BaekJoon-9613-gcd-sum/" class="post-title-link" itemprop="url">[BaekJoon-9613] GCD 합</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2020-04-02 17:36:45" itemprop="dateCreated datePublished" datetime="2020-04-02T17:36:45+09:00">2020-04-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-05-01 16:10:59" itemprop="dateModified" datetime="2020-05-01T16:10:59+09:00">2020-05-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/" itemprop="url" rel="index">
-                    <span itemprop="name">Computer</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Computer/CodingTest/" itemprop="url" rel="index">
-                    <span itemprop="name">CodingTest</span>
-                  </a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="fa fa-comment-o"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus: </span>
-    
-    <a title="disqus" href="/2020/04/02/BaekJoon-9613-gcd-sum/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/02/BaekJoon-9613-gcd-sum/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="Symbols count in article">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">Symbols count in article: </span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="Reading time">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">Reading time &asymp;</span>
-              <span>1 mins.</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="BaekJoon-9613-GCD-합"><a href="#BaekJoon-9613-GCD-합" class="headerlink" title="[BaekJoon-9613] GCD 합"></a>[BaekJoon-9613] GCD 합</h1><h2 id="문제"><a href="#문제" class="headerlink" title="문제"></a>문제</h2><p>양의 정수 n개가 주어졌을 때, 가능한 모든 쌍의 GCD의 합을 구하는 프로그램을 작성하시오.</p>
-<h2 id="입력"><a href="#입력" class="headerlink" title="입력"></a>입력</h2><p>첫째 줄에 테스트 케이스의 개수 t (1 ≤ t ≤ 100)이 주어진다. 각 테스트 케이스는 한 줄로 이루어져 있다. 각 테스트 케이스는 수의 개수 n (1 &lt; n ≤ 100)가 주어지고, 다음에는 n개의 수가 주어진다. 입력으로 주어지는 수는 1,000,000을 넘지 않는다.</p>
-<h2 id="출력"><a href="#출력" class="headerlink" title="출력"></a>출력</h2><p>각 테스트 케이스마다 가능한 모든 쌍의 GCD의 합을 출력한다.</p>
-<h3 id="예제-입력-1"><a href="#예제-입력-1" class="headerlink" title="예제 입력 1"></a>예제 입력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">4 10 20 30 40</span><br><span class="line">3 7 5 12</span><br><span class="line">3 125 15 25</span><br></pre></td></tr></table></figure>
-<h3 id="예제-출력-1"><a href="#예제-출력-1" class="headerlink" title="예제 출력 1"></a>예제 출력 1</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">70</span><br><span class="line">3</span><br><span class="line">35</span><br></pre></td></tr></table></figure>
-<h2 id="해결"><a href="#해결" class="headerlink" title="해결"></a>해결</h2><p>최대공약수는 유클리드 호재법을 이용했다.<br>여기서 최대공약수의 합이라고 되어있는데 가능한 모든 쌍이라는 것이 </p>
-<p>10 20 30 40</p>
-<p>이 있다면<br>10, 20, 30, 40 의 최대굉약수 합</p>
-<p>20, 30, 40 의 최대공약수 합</p>
-<p>30, 40 의 최대공약수 합</p>
-<p>이 된다.</p>
-<p>그래서 루프를 두 번 돌려야하며 i 는 <code>i to n - 1</code>번 만큼 루프를 (왜냐하면 마지막 값은 하나 뿐이니..)<br>j 는 <code>i + 1 to n</code>번 만큼 루프를 돌린다.</p>
-<h2 id="소스코드"><a href="#소스코드" class="headerlink" title="소스코드"></a>소스코드</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.io.BufferedReader;</span><br><span class="line"><span class="keyword">import</span> java.io.BufferedWriter;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStreamReader;</span><br><span class="line"><span class="keyword">import</span> java.io.OutputStreamWriter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        sumOfGCD();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sumOfGCD</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        BufferedWriter out = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> OutputStreamWriter(System.out));</span><br><span class="line">        BufferedReader in = <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(System.in));</span><br><span class="line">        <span class="keyword">int</span> t = Integer.parseInt(in.readLine());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (t-- != <span class="number">0</span>) &#123;</span><br><span class="line">            String s = in.readLine();</span><br><span class="line">            String[] split = s.split(<span class="string">" "</span>);</span><br><span class="line">            <span class="keyword">int</span> n = Integer.parseInt(split[<span class="number">0</span>]);</span><br><span class="line">            <span class="keyword">long</span> sum = <span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++) &#123;</span><br><span class="line">                <span class="keyword">for</span> (<span class="keyword">int</span> j = i + <span class="number">1</span>; j &lt;= n; j++) &#123;</span><br><span class="line">                    sum += gcd(Integer.parseInt(split[i]), Integer.parseInt(split[j]));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            out.write(sum + <span class="string">"\n"</span>);</span><br><span class="line">            out.flush();</span><br><span class="line">        &#125;</span><br><span class="line">        out.close();</span><br><span class="line">        in.close();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">gcd</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">while</span> (b != <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">int</span> r = a % b;</span><br><span class="line">            a = b;</span><br><span class="line">            b = r;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><em>문제 사이트</em> : <a href="https://www.acmicpc.net/problem/9613" target="_blank" rel="noopener">https://www.acmicpc.net/problem/9613</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="Next page"></i></a>
   </nav>
 
 
@@ -1571,7 +1579,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -1584,7 +1592,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
@@ -1633,13 +1641,13 @@
       <i class="fa fa-area-chart"></i>
     </span>
       <span class="post-meta-item-text">Symbols count total: </span>
-    <span title="Symbols count total">103k</span>
+    <span title="Symbols count total">112k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">Reading time total &asymp;</span>
-    <span title="Reading time total">1:34</span>
+    <span title="Reading time total">1:42</span>
 </div>
 
         
